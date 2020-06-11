@@ -6,6 +6,7 @@ class App extends Component {
 	constructor() {
 		super();
 		this.state = {
+			formIsValid: false, //we will use this to track the overall form validity
 			formControls: {
 				name: {
 					value: '',
@@ -37,8 +38,14 @@ class App extends Component {
 
 		updatedControls[name] = updatedFormElement;
 
+		let formIsValid = true;
+		for (let inputIdentifier in updatedControls) {
+			formIsValid = updatedControls[inputIdentifier].valid && formIsValid;
+		}
+
 		this.setState({
-			formControls: updatedControls
+			formControls: updatedControls,
+			formIsValid
 		});
 	}
 
@@ -51,16 +58,17 @@ class App extends Component {
 		return (
 			<div className="App">
 				<h2>Form helper</h2>
-				<form onSubmit={this.formSubmitHandler}>
-					<label htmlFor="name">Name{' '}</label>
+				<form onSubmit={this.formSubmitHandler} autoComplete="off">
 					<TextInput
-						id="name"
+						label="Name"
 						name="name"
 						placeholder={this.state.formControls.name.placeholder}
 						value={this.state.formControls.name.value}
 						onChange={this.changeHandler}
+						touched={this.state.formControls.name.touched}
+						valid={this.state.formControls.name.valid}
 					/>
-					<button type="submit"> Submit </button>
+					<button type="submit" className="btn-submit" disabled={!this.state.formIsValid}> Submit </button>
 				</form>
 			</div>
 		);
