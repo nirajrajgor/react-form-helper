@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { TextInput } from './utils/form_helpers';
+import { TextInput, Validate } from './utils/form_helpers';
 
 class App extends Component {
 	constructor() {
@@ -13,7 +13,8 @@ class App extends Component {
 					valid: false,
 					touched: false,
 					validationRules: {
-						minLength: 3
+						minLength: 3,
+						isRequired: true
 					}
 				}
 			}
@@ -32,7 +33,7 @@ class App extends Component {
 		};
 		updatedFormElement.value = value;
 		updatedFormElement.touched = true;
-		updatedFormElement.valid = validate(value, updatedFormElement.validationRules);
+		updatedFormElement.valid = Validate(value, updatedFormElement.validationRules);
 
 		updatedControls[name] = updatedFormElement;
 
@@ -41,11 +42,16 @@ class App extends Component {
 		});
 	}
 
+	formSubmitHandler = (e) => {
+		e.preventDefault();
+		console.dir(this.state.formControls);
+	}
+
 	render() {
 		return (
 			<div className="App">
 				<h2>Form helper</h2>
-				<form>
+				<form onSubmit={this.formSubmitHandler}>
 					<label htmlFor="name">Name{' '}</label>
 					<TextInput
 						id="name"
@@ -54,6 +60,7 @@ class App extends Component {
 						value={this.state.formControls.name.value}
 						onChange={this.changeHandler}
 					/>
+					<button type="submit"> Submit </button>
 				</form>
 			</div>
 		);
