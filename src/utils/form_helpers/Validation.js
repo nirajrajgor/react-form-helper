@@ -1,25 +1,31 @@
 const Validate = (value, rules) => {
 	let isValid = true;
+	let message = "";
 
+	outer_loop:
 	for (let rule in rules) {
-
 		switch (rule) {
-			case 'minLength':
-				isValid = isValid && minLengthValidator(value, rules[rule]);
-				break;
 			case 'isRequired':
 				isValid = isValid && requiredValidator(value);
+				message = isValid ? "" : rules[rule].message;
+				break;
+			case 'minLength':
+				isValid = isValid && minLengthValidator(value, rules[rule].value);
+				message = isValid ? "" : rules[rule].message;
 				break;
 			case 'isEmail':
 				isValid = isValid && emailValidator(value);
+				message = rule.message;
 				break;
 			default:
 				isValid = true;
 		}
+		if (!isValid)
+			break outer_loop;
 
 	}
 
-	return isValid;
+	return { isValid, message };
 }
 
 
@@ -42,7 +48,7 @@ const minLengthValidator = (value, minLength) => {
 const requiredValidator = value => {
 	if (Array.isArray(value))
 		return value.length !== 0;
-	return value.trim() !== '';
+	return value.trim().length !== 0;
 }
 
 /**
