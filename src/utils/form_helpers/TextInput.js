@@ -20,7 +20,7 @@ const TextInput = ({
 			<label htmlFor={props.name}>{label}</label>
 			<input type={type} className={formControl} id={props.name} {...props} />
 			{/* Help text or Error */}
-			<div className="info-text">{errorMessage ? errorMessage : helpText}</div>
+			<div className={errorMessage ? "info-text error-text" : "info-text"}>{errorMessage ? errorMessage : helpText}</div>
 		</div>
 	);
 }
