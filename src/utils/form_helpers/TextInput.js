@@ -1,6 +1,15 @@
 import React from 'react';
+import { inputType } from '../Constants';
 
-const TextInput = ({ touched, valid, label, ...props }) => {
+const TextInput = ({
+	type = inputType.TEXT,
+	touched,
+	valid,
+	label,
+	errorMessage,
+	helpText,
+	...props
+}) => {
 	let formControl = "form-control";
 
 	if (touched && !valid) {
@@ -9,7 +18,9 @@ const TextInput = ({ touched, valid, label, ...props }) => {
 	return (
 		<div className="form-group">
 			<label htmlFor={props.name}>{label}</label>
-			<input type="text" className={formControl} id={props.name} {...props} />
+			<input type={type} className={formControl} id={props.name} {...props} />
+			{/* Help text or Error */}
+			<div className="info-text">{errorMessage ? errorMessage : helpText}</div>
 		</div>
 	);
 }
