@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { TextInput, Validate } from './utils/form_helpers';
+import { inputType } from './utils/Constants';
 
 class App extends Component {
 	constructor() {
@@ -13,9 +14,16 @@ class App extends Component {
 					placeholder: 'What is your name',
 					valid: false,
 					touched: false,
+					errorMessage: "",
 					validationRules: {
-						minLength: 3,
-						isRequired: true
+
+						isRequired: {
+							message: "Name is required",
+						},
+						minLength: {
+							value: 2,
+							message: "Min length is required",
+						}
 					}
 				}
 			}
@@ -34,7 +42,10 @@ class App extends Component {
 		};
 		updatedFormElement.value = value;
 		updatedFormElement.touched = true;
-		updatedFormElement.valid = Validate(value, updatedFormElement.validationRules);
+		const { isValid, message } = Validate(value, updatedFormElement.validationRules);
+
+		updatedFormElement.valid = isValid;
+		updatedFormElement.errorMessage = message;
 
 		updatedControls[name] = updatedFormElement;
 
@@ -63,6 +74,8 @@ class App extends Component {
 						label="Name"
 						name="name"
 						placeholder={this.state.formControls.name.placeholder}
+						// helpText="Name must be greater than 6 character"
+						errorMessage={this.state.formControls.name.errorMessage}
 						value={this.state.formControls.name.value}
 						onChange={this.changeHandler}
 						touched={this.state.formControls.name.touched}
