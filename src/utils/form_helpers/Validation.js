@@ -1,66 +1,47 @@
-const Validate = (value, rules) => {
-	let isValid = true;
-	let message = "";
+export const Validate = (value, rules) => {
+	const invalidRule = rules.find(rule => {
+		return !rule.validate(value);
+	});
+	if (invalidRule)
+		return invalidRule;
+	return { message: "" };
+}
 
-	outer_loop:
-	for (let rule in rules) {
-		switch (rule) {
-			case 'isRequired':
-				isValid = isValid && requiredValidator(value);
-				message = isValid ? "" : rules[rule].message;
-				break;
-			case 'minLength':
-				isValid = isValid && minLengthValidator(value, rules[rule].value);
-				message = isValid ? "" : rules[rule].message;
-				break;
-			case 'isEmail':
-				isValid = isValid && emailValidator(value);
-				message = rule.message;
-				break;
-			default:
-				isValid = true;
-		}
-		if (!isValid)
-			break outer_loop;
+class Validation {
 
+	/**
+	 * minLength Val
+	 * @param  value
+	 * @param  minLength
+	 * @return
+	 */
+	static minLength = minLength => value => {
+		return value.length >= minLength;
 	}
 
-	return { isValid, message };
+	/**
+	 * Check to confirm that feild is required
+	 *
+	 * @param  value
+	 * @return
+	 */
+	static isRequired = value => {
+		if (Array.isArray(value))
+			return value.length !== 0;
+		return value.trim().length !== 0;
+	}
+
+	/**
+	 * Email validation
+	 *
+	 * @param value
+	 * @return
+	 */
+	static isEmail = value => {
+		let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; //eslint-disable-line
+		return re.test(String(value).toLowerCase());
+	}
 }
 
 
-/**
- * minLength Val
- * @param  value
- * @param  minLength
- * @return
- */
-const minLengthValidator = (value, minLength) => {
-	return value.length >= minLength;
-}
-
-/**
- * Check to confirm that feild is required
- *
- * @param  value
- * @return
- */
-const requiredValidator = value => {
-	if (Array.isArray(value))
-		return value.length !== 0;
-	return value.trim().length !== 0;
-}
-
-/**
- * Email validation
- *
- * @param value
- * @return
- */
-const emailValidator = value => {
-	let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; //eslint-disable-line
-	return re.test(String(value).toLowerCase());
-}
-
-
-export default Validate;
+export default Validation;
