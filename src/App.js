@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import { TextInput, Validate } from './utils/form_helpers';
+import { TextInput } from './utils/form_helpers';
+import Validation, { Validate } from './utils/form_helpers/Validation';
 import { inputType } from './utils/Constants';
 
 class App extends Component {
@@ -15,20 +16,21 @@ class App extends Component {
 					valid: false,
 					touched: false,
 					errorMessage: "",
-					validationRules: {
-
-						isRequired: {
-							message: "Name is required",
+					validationRules: [
+						{
+							validate: Validation.isRequired,
+							message: "Name is required"
 						},
-						minLength: {
-							value: 2,
-							message: "Min length is required",
+						{
+							validate: Validation.minLength(6),
+							message: "minlength is required"
 						}
-					}
+					]
 				}
 			}
 		}
 	}
+
 
 	changeHandler = event => {
 		const name = event.target.name;
@@ -42,9 +44,9 @@ class App extends Component {
 		};
 		updatedFormElement.value = value;
 		updatedFormElement.touched = true;
-		const { isValid, message } = Validate(value, updatedFormElement.validationRules);
+		const { message } = Validate(value, updatedFormElement.validationRules);
 
-		updatedFormElement.valid = isValid;
+		updatedFormElement.valid = message ? false : true;
 		updatedFormElement.errorMessage = message;
 
 		updatedControls[name] = updatedFormElement;
