@@ -3,6 +3,7 @@ import './App.css';
 import { TextInput } from './utils/form_helpers';
 import Validation, { Validate } from './utils/form_helpers/Validation';
 import { inputType } from './utils/Constants';
+import { onChangeHandler } from './utils/form_helpers/FormMethods';
 
 class App extends Component {
 	constructor() {
@@ -26,12 +27,27 @@ class App extends Component {
 							message: "minlength is required"
 						}
 					]
+				},
+				email: {
+					value: '',
+					placeholder: 'Enter email',
+					valid: false,
+					touched: false,
+					errorMessage: "",
+					validationRules: [
+						{
+							validate: Validation.isRequired,
+							message: "Email is required"
+						}
+					]
 				}
 			}
 		}
 	}
 
 
+	/*
+	No need to write in every component. Made common function for it.
 	changeHandler = event => {
 		const name = event.target.name;
 		const value = event.target.value;
@@ -61,6 +77,7 @@ class App extends Component {
 			formIsValid
 		});
 	}
+	*/
 
 	formSubmitHandler = (e) => {
 		e.preventDefault();
@@ -79,9 +96,20 @@ class App extends Component {
 						// helpText="Name must be greater than 6 character"
 						errorMessage={this.state.formControls.name.errorMessage}
 						value={this.state.formControls.name.value}
-						onChange={this.changeHandler}
+						onChange={onChangeHandler(this)}
 						touched={this.state.formControls.name.touched}
 						valid={this.state.formControls.name.valid}
+					/>
+					<TextInput
+						label="Email Address"
+						name="email"
+						placeholder={this.state.formControls.email.placeholder}
+						helpText="email must include @"
+						errorMessage={this.state.formControls.email.errorMessage}
+						value={this.state.formControls.email.value}
+						onChange={onChangeHandler(this)}
+						touched={this.state.formControls.email.touched}
+						valid={this.state.formControls.email.valid}
 					/>
 					<button type="submit" className="btn-submit" disabled={!this.state.formIsValid}> Submit </button>
 				</form>
