@@ -38,6 +38,10 @@ class App extends Component {
 						{
 							validate: Validation.isRequired,
 							message: "Email is required"
+						},
+						{
+							validate: Validation.isEmail,
+							message: "Email is incorrect"
 						}
 					]
 				}
@@ -101,6 +105,7 @@ class App extends Component {
 						valid={this.state.formControls.name.valid}
 					/>
 					<TextInput
+						type={inputType.EMAIL}
 						label="Email Address"
 						name="email"
 						placeholder={this.state.formControls.email.placeholder}
