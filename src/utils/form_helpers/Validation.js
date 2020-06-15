@@ -1,3 +1,9 @@
+/**
+* Validate
+* @param  value
+* @param  rules i.e validation rules.
+* @return
+*/
 export const Validate = (value, rules) => {
 	const invalidRule = rules.find(rule => {
 		return !rule.validate(value);
