@@ -11,20 +11,37 @@ class App extends Component {
 		this.state = {
 			formIsValid: false, //we will use this to track the overall form validity
 			formControls: {
-				name: {
+				firstName: {
 					value: '',
-					placeholder: 'What is your name',
+					placeholder: 'Enter First Name',
 					valid: false,
 					touched: false,
 					errorMessage: "",
 					validationRules: [
 						{
 							validate: Validation.isRequired,
-							message: "Name is required"
+							message: "First Name is required"
 						},
 						{
-							validate: Validation.minLength(6),
-							message: "minlength is required"
+							validate: Validation.minLength(3),
+							message: "First Name must be greater than 2 character"
+						}
+					]
+				},
+				lastName: {
+					value: '',
+					placeholder: 'Enter Last Name',
+					valid: false,
+					touched: false,
+					errorMessage: "",
+					validationRules: [
+						{
+							validate: Validation.isRequired,
+							message: "Last Name is required"
+						},
+						{
+							validate: Validation.minLength(3),
+							message: "Last Name must be greater than 2 character"
 						}
 					]
 				},
@@ -44,44 +61,23 @@ class App extends Component {
 							message: "Email is incorrect"
 						}
 					]
+				},
+				password: {
+					value: '',
+					placeholder: 'Enter password',
+					valid: false,
+					touched: false,
+					errorMessage: "",
+					validationRules: [
+						{
+							validate: Validation.isRequired,
+							message: "Password is required"
+						}
+					]
 				}
 			}
 		}
 	}
-
-
-	/*
-	No need to write in every component. Made common function for it.
-	changeHandler = event => {
-		const name = event.target.name;
-		const value = event.target.value;
-
-		const updatedControls = {
-			...this.state.formControls
-		};
-		const updatedFormElement = {
-			...updatedControls[name]
-		};
-		updatedFormElement.value = value;
-		updatedFormElement.touched = true;
-		const { message } = Validate(value, updatedFormElement.validationRules);
-
-		updatedFormElement.valid = message ? false : true;
-		updatedFormElement.errorMessage = message;
-
-		updatedControls[name] = updatedFormElement;
-
-		let formIsValid = true;
-		for (let inputIdentifier in updatedControls) {
-			formIsValid = updatedControls[inputIdentifier].valid && formIsValid;
-		}
-
-		this.setState({
-			formControls: updatedControls,
-			formIsValid
-		});
-	}
-	*/
 
 	formSubmitHandler = (e) => {
 		e.preventDefault();
@@ -94,15 +90,26 @@ class App extends Component {
 				<h2>Form helper</h2>
 				<form onSubmit={this.formSubmitHandler} autoComplete="off">
 					<TextInput
-						label="Name"
-						name="name"
-						placeholder={this.state.formControls.name.placeholder}
-						// helpText="Name must be greater than 6 character"
-						errorMessage={this.state.formControls.name.errorMessage}
-						value={this.state.formControls.name.value}
+						label="First Name"
+						name="firstName"
+						placeholder={this.state.formControls.firstName.placeholder}
+						// helpText="firstName must be greater than 6 character"
+						errorMessage={this.state.formControls.firstName.errorMessage}
+						value={this.state.formControls.firstName.value}
 						onChange={onChangeHandler(this)}
-						touched={this.state.formControls.name.touched}
-						valid={this.state.formControls.name.valid}
+						touched={this.state.formControls.firstName.touched}
+						valid={this.state.formControls.firstName.valid}
+					/>
+					<TextInput
+						label="Last Name"
+						name="lastName"
+						placeholder={this.state.formControls.lastName.placeholder}
+						// helpText="Last Name must be greater than 6 character"
+						errorMessage={this.state.formControls.lastName.errorMessage}
+						value={this.state.formControls.lastName.value}
+						onChange={onChangeHandler(this)}
+						touched={this.state.formControls.lastName.touched}
+						valid={this.state.formControls.lastName.valid}
 					/>
 					<TextInput
 						type={inputType.EMAIL}
@@ -115,6 +122,18 @@ class App extends Component {
 						onChange={onChangeHandler(this)}
 						touched={this.state.formControls.email.touched}
 						valid={this.state.formControls.email.valid}
+					/>
+					<TextInput
+						type={inputType.PASSWORD}
+						label="Password"
+						name="password"
+						placeholder={this.state.formControls.password.placeholder}
+						// helpText="password"
+						errorMessage={this.state.formControls.password.errorMessage}
+						value={this.state.formControls.password.value}
+						onChange={onChangeHandler(this)}
+						touched={this.state.formControls.password.touched}
+						valid={this.state.formControls.password.valid}
 					/>
 					<button type="submit" className="btn-submit" disabled={!this.state.formIsValid}> Submit </button>
 				</form>
