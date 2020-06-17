@@ -2,6 +2,10 @@
 	margin: 20px;
 }
 
+.form-group {
+	margin-bottom: 20px;
+}
+
 .form-control {
 	width: 50%;
 	border: 1px solid #ccc;
@@ -19,6 +23,12 @@
 .form-group .info-text {
 	display: block;
 	margin-bottom: 10px;
+}
+
+.form-group .info-text {
+	color: rgba(0, 0, 0, 0.57);
+	font-size: 14px;
+	margin-top: 4px;
 }
 
 .btn-submit {
