@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { TextInput } from './utils/form_helpers';
+import { TextInput, TextArea } from './utils/form_helpers';
 import Validation, { Validate } from './utils/form_helpers/Validation';
 import { inputType } from './utils/Constants';
 import { onChangeHandler } from './utils/form_helpers/FormMethods';
@@ -74,6 +74,20 @@ class App extends Component {
 							message: "Password is required"
 						}
 					]
+				},
+				summary: {
+					value: '',
+					placeholder: 'Enter summary',
+					rows: 5,
+					valid: false,
+					touched: false,
+					errorMessage: "",
+					validationRules: [
+						{
+							validate: Validation.isRequired,
+							message: "Summary is required"
+						}
+					]
 				}
 			}
 		}
@@ -134,6 +148,19 @@ class App extends Component {
 						onChange={onChangeHandler(this)}
 						touched={this.state.formControls.password.touched}
 						valid={this.state.formControls.password.valid}
+					/>
+
+					<TextArea
+						label="Summary"
+						name="summary"
+						placeholder={this.state.formControls.summary.placeholder}
+						// helpText="summary"
+						errorMessage={this.state.formControls.summary.errorMessage}
+						value={this.state.formControls.summary.value}
+						rows={this.state.formControls.summary.rows}
+						onChange={onChangeHandler(this)}
+						touched={this.state.formControls.summary.touched}
+						valid={this.state.formControls.summary.valid}
 					/>
 					<button type="submit" className="btn-submit" disabled={!this.state.formIsValid}> Submit </button>
 				</form>

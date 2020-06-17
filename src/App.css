@@ -15,9 +15,6 @@
 .control-error {
 	border: 1px solid red;
 }
-.error-text {
-	color: red;
-}
 
 .form-group label,
 .form-group .info-text {
@@ -29,6 +26,10 @@
 	color: rgba(0, 0, 0, 0.57);
 	font-size: 14px;
 	margin-top: 4px;
+}
+
+.form-group .error-text {
+	color: red;
 }
 
 .btn-submit {
