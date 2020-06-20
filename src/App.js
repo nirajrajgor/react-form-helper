@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { TextInput, TextArea } from './utils/form_helpers';
+import { TextInput, TextArea, Select } from './utils/form_helpers';
 import Validation, { Validate } from './utils/form_helpers/Validation';
 import { inputType } from './utils/Constants';
 import { onChangeHandler } from './utils/form_helpers/FormMethods';
@@ -88,6 +88,23 @@ class App extends Component {
 							message: "Summary is required"
 						}
 					]
+				},
+				personType: {
+					value: '',
+					placeholder: 'Select Person Type',
+					valid: false,
+					touched: false,
+					errorMessage: "",
+					validationRules: [
+						{
+							validate: Validation.isRequired,
+							message: "Person Type is required"
+						}
+					],
+					options: [
+						{ value: 'individual', text: 'Individual' },
+						{ value: 'corporate', text: 'Corporate' }
+					]
 				}
 			}
 		}
@@ -107,7 +124,6 @@ class App extends Component {
 						label="First Name"
 						name="firstName"
 						placeholder={this.state.formControls.firstName.placeholder}
-						// helpText="firstName must be greater than 6 character"
 						errorMessage={this.state.formControls.firstName.errorMessage}
 						value={this.state.formControls.firstName.value}
 						onChange={onChangeHandler(this)}
@@ -118,7 +134,6 @@ class App extends Component {
 						label="Last Name"
 						name="lastName"
 						placeholder={this.state.formControls.lastName.placeholder}
-						// helpText="Last Name must be greater than 6 character"
 						errorMessage={this.state.formControls.lastName.errorMessage}
 						value={this.state.formControls.lastName.value}
 						onChange={onChangeHandler(this)}
@@ -142,7 +157,6 @@ class App extends Component {
 						label="Password"
 						name="password"
 						placeholder={this.state.formControls.password.placeholder}
-						// helpText="password"
 						errorMessage={this.state.formControls.password.errorMessage}
 						value={this.state.formControls.password.value}
 						onChange={onChangeHandler(this)}
@@ -154,7 +168,6 @@ class App extends Component {
 						label="Summary"
 						name="summary"
 						placeholder={this.state.formControls.summary.placeholder}
-						// helpText="summary"
 						errorMessage={this.state.formControls.summary.errorMessage}
 						value={this.state.formControls.summary.value}
 						rows={this.state.formControls.summary.rows}
@@ -162,6 +175,19 @@ class App extends Component {
 						touched={this.state.formControls.summary.touched}
 						valid={this.state.formControls.summary.valid}
 					/>
+
+					<Select
+						label="Person Type"
+						name="personType"
+						placeholder={this.state.formControls.personType.placeholder}
+						errorMessage={this.state.formControls.personType.errorMessage}
+						value={this.state.formControls.personType.value}
+						onChange={onChangeHandler(this)}
+						touched={this.state.formControls.personType.touched}
+						valid={this.state.formControls.personType.valid}
+						options={this.state.formControls.personType.options}
+					/>
+
 					<button type="submit" className="btn-submit" disabled={!this.state.formIsValid}> Submit </button>
 				</form>
 			</div>
