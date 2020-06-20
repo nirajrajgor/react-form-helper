@@ -4,10 +4,11 @@
 
 .form-group {
 	margin-bottom: 20px;
+	width: 50%;
 }
 
 .form-control {
-	width: 50%;
+	width: inherit;
 	border: 1px solid #ccc;
 	padding: 10px;
 }
