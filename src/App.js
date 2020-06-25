@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { TextInput, TextArea, Select } from './utils/form_helpers';
+import { TextInput, TextArea, Select, Radio } from './utils/form_helpers';
 import Validation, { Validate } from './utils/form_helpers/Validation';
 import { inputType } from './utils/Constants';
 import { onChangeHandler } from './utils/form_helpers/FormMethods';
@@ -105,6 +105,22 @@ class App extends Component {
 						{ value: 'individual', text: 'Individual' },
 						{ value: 'corporate', text: 'Corporate' }
 					]
+				},
+				developerRadio: {
+					value: '',
+					valid: false,
+					touched: false,
+					errorMessage: "",
+					validationRules: [
+						{
+							validate: Validation.isRequired,
+							message: "Developer is required"
+						}
+					],
+					options: [
+						{ value: 0, text: 'No' },
+						{ value: 1, text: 'Yes' }
+					]
 				}
 			}
 		}
@@ -186,6 +202,17 @@ class App extends Component {
 						touched={this.state.formControls.personType.touched}
 						valid={this.state.formControls.personType.valid}
 						options={this.state.formControls.personType.options}
+					/>
+
+					<Radio
+						label="Are you a Developer"
+						name="developerRadio"
+						errorMessage={this.state.formControls.developerRadio.errorMessage}
+						value={this.state.formControls.developerRadio.value}
+						onChange={onChangeHandler(this)}
+						touched={this.state.formControls.developerRadio.touched}
+						valid={this.state.formControls.developerRadio.valid}
+						options={this.state.formControls.developerRadio.options}
 					/>
 
 					<button type="submit" className="btn-submit" disabled={!this.state.formIsValid}> Submit </button>

@@ -33,6 +33,10 @@
 	color: red;
 }
 
+.form-group .radio-group label {
+	display: inline-block;
+}
+
 .btn-submit {
 	margin: 20px 0;
 	padding: 8px 14px;
