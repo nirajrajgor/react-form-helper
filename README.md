@@ -4,6 +4,7 @@ Components available to use are as follows:
 * TextInput component
 * TextArea component
 * Select component
+* Radio component
 
 ## Available Scripts
 
