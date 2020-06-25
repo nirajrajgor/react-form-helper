@@ -1,6 +1,9 @@
 # React form helper
 A utility library to handle the task related to forms. It's a work in progress.
-Currently the TextInput component and TextArea component are available to use.
+Components available to use are as follows:
+* TextInput component
+* TextArea component
+* Select component
 
 ## Available Scripts
 
