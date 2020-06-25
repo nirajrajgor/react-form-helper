@@ -25,7 +25,7 @@ const Radio = ({
 							type="radio"
 							className={formControl}
 							id={option.text}
-							selected={value === option.value ? true : null}
+							checked={value === option.value ? true : null}
 							value={option.value}
 							{...props}
 						/>

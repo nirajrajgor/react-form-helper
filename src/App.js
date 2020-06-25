@@ -118,8 +118,8 @@ class App extends Component {
 						}
 					],
 					options: [
-						{ value: 0, text: 'No' },
-						{ value: 1, text: 'Yes' }
+						{ value: '0', text: 'No' },
+						{ value: '1', text: 'Yes' }
 					]
 				}
 			}
